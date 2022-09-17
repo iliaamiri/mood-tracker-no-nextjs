@@ -18,7 +18,11 @@ const MoodRepository: IMoodRepository = {
     },
     async getOne(moodId) {
         try {
-            const response = await fetch("/api/moods/" + moodId);
+            const response = await fetch("/api/moods/" + moodId, {
+                headers: {
+                    'X-Forward': 'http://localhost:5240',
+                }
+            });
             console.log(response);
             return await response.json() as Mood;
         } catch (error) {
@@ -33,7 +37,8 @@ const MoodRepository: IMoodRepository = {
             body: JSON.stringify(newMood),
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-Forward': 'http://localhost:5240',
             },
         });
 
@@ -45,7 +50,8 @@ const MoodRepository: IMoodRepository = {
             body: JSON.stringify(updateMoodPayloadDTO),
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-Forward': 'http://localhost:5240',
             },
         });
 
@@ -57,7 +63,8 @@ const MoodRepository: IMoodRepository = {
             body: JSON.stringify({ moodId }),
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-Forward': 'http://localhost:5240',
             },
         });
     }
