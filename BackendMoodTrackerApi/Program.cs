@@ -3,7 +3,6 @@ using BackendMoodTrackerApi.DatabaseAccessLayer.MoodTracker;
 using BackendMoodTrackerApi.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +37,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
@@ -56,16 +54,5 @@ var staticFileOptions = new StaticFileOptions
 app.UseStaticFiles(staticFileOptions);
 
 app.MapControllers();
-
-// app.MapWhen(context => !context.Request.Path.Value.StartsWith("/api"), builder =>
-// {
-//     builder.UseStaticFiles();
-//     app.Run(async (context) =>
-//     {
-//         context.Response.ContentType = "text/html";
-//         context.Response.Headers[HeaderNames.CacheControl] = "no-store, no-cache, must-revalidate";
-//         await context.Response.SendFileAsync("wwwroot/index.html");
-//     });
-// });
 
 app.Run();
