@@ -46,6 +46,7 @@ public class MoodRepository : IMoodRepository
             mood.FeelingText = updateMoodPayloadDTO.FeelingText;
             
             db.Update(mood);
+
             await db.SaveChangesAsync();
 
             return mood;
@@ -64,6 +65,7 @@ public class MoodRepository : IMoodRepository
                 CreatedAt = DateTime.Now
             });
             await db.SaveChangesAsync();
+			
             return result.Entity;
         }
     }
