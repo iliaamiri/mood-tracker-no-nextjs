@@ -1,10 +1,18 @@
 using BackendMoodTrackerApi.DatabaseAccessLayer.MoodTracker;
+using BackendMoodTrackerApi.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddCors(options => { options.AddPolicy(name: "_myAllowSpecificOrigins", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowCredentials();
+    }); 
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -13,6 +21,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextPool<moodTrackerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("moodTracker")));
+
+builder.Services.AddScoped<IMoodRepository, MoodRepository>();
 
 var app = builder.Build();
 
@@ -23,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
