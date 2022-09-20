@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "backend",
   "version": "0.0.0",
   "description": "TypeScript + Prisma + MySQL + Express API Server",
   "author": "",
