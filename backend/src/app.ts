@@ -47,7 +47,7 @@ class App {
   }
 
   private initializeMiddlewares() {
-    // this.app.use(morgan(LOG_FORMAT, { stream }));
+    this.app.use(morgan(LOG_FORMAT, { stream }));
     this.app.use(cors({ origin: '*', optionsSuccessStatus: 200 }));
     this.app.use(hpp());
     this.app.use(helmet());
