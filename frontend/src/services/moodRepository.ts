@@ -7,9 +7,9 @@ const MoodRepository: IMoodRepository = {
     async getAll(): Promise<Mood[]> {
         try {
             const response = await fetch('/api/moods/');
-            const jsonData = await response.json();
+            const json = await response.json();
 
-            return jsonData as Mood[];
+            return json.data as Mood[];
         } catch (error) {
             //debugger;
             //alert("ERRROR");
@@ -23,8 +23,8 @@ const MoodRepository: IMoodRepository = {
                     'X-Forward': 'http://localhost:5240',
                 }
             });
-            console.log(response);
-            return await response.json() as Mood;
+            const json = await response.json();
+            return await json.data as Mood;
         } catch (error) {
             //debugger;
             //alert(error);
@@ -32,7 +32,7 @@ const MoodRepository: IMoodRepository = {
         }
     },
     async add(newMood: AddMoodPayloadDTO): Promise<Mood> {
-        const addedMood = await fetch('/api/moods/add', {
+        const addedMood = await fetch('/api/moods', {
             method: "POST",
             body: JSON.stringify(newMood),
             headers: {
@@ -42,11 +42,11 @@ const MoodRepository: IMoodRepository = {
             },
         });
 
-        return await addedMood.json() as Mood;
+        return (await addedMood.json()).data as Mood;
     },
     async update(updateMoodPayloadDTO: UpdateMoodPayloadDTO): Promise<Mood> {
-        const updatedMood = await fetch('/api/moods/update', {
-            method: "POST",
+        const updatedMood = await fetch('/api/moods', {
+            method: "PUT",
             body: JSON.stringify(updateMoodPayloadDTO),
             headers: {
                 'Accept': 'application/json',
@@ -55,11 +55,11 @@ const MoodRepository: IMoodRepository = {
             },
         });
 
-        return await updatedMood.json() as Mood;
+        return (await updatedMood.json()).data as Mood;
     },
     async remove(moodId: number): Promise<void> {
-        await fetch('/api/moods/delete', {
-            method: "POST",
+        await fetch('/api/moods/' + moodId, {
+            method: "DELETE",
             body: JSON.stringify({ moodId }),
             headers: {
                 'Accept': 'application/json',

@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model mood {
+  moodId      Int      @id @default(autoincrement())
+  feelingText String   @db.VarChar(64)
+  createdAt   DateTime @default(dbgenerated("(curtime())")) @db.DateTime(0)
+  rating      Int?     @default(0)
+}
