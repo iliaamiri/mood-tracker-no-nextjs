@@ -1,10 +1,10 @@
-import compression from 'compression';
+// import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
-import helmet from 'helmet';
-import hpp from 'hpp';
-import morgan from 'morgan';
+// import helmet from 'helmet';
+// import hpp from 'hpp';
+// import morgan from 'morgan';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
@@ -47,11 +47,11 @@ class App {
   }
 
   private initializeMiddlewares() {
-    this.app.use(morgan(LOG_FORMAT, { stream }));
+    // this.app.use(morgan(LOG_FORMAT, { stream }));
     this.app.use(cors({ origin: '*', optionsSuccessStatus: 200 }));
-    this.app.use(hpp());
-    this.app.use(helmet());
-    this.app.use(compression());
+    // this.app.use(hpp());
+    // this.app.use(helmet());
+    // this.app.use(compression());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
