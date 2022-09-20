@@ -1,5 +1,5 @@
 import App from '@/app';
-import MoodsRoute from "@routes/moods.route";
+import MoodsRoute from '@routes/moods.route';
 import validateEnv from '@utils/validateEnv';
 
 validateEnv();

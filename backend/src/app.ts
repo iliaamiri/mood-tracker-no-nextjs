@@ -11,7 +11,6 @@ import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
-import * as Process from "process";
 
 class App {
   public app: express.Application;
@@ -27,6 +26,11 @@ class App {
     this.initializeRoutes(routes);
     this.initializeSwagger();
     this.initializeErrorHandling();
+
+    this.app.use(express.static(__dirname + '/client'));
+    this.app.get('/*', (req, res) => {
+      res.sendFile(__dirname + '/client/index.html');
+    });
   }
 
   public listen() {
@@ -43,8 +47,8 @@ class App {
   }
 
   private initializeMiddlewares() {
-    this.app.use(morgan(LOG_FORMAT, { stream }));
-    this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
+    // this.app.use(morgan(LOG_FORMAT, { stream }));
+    this.app.use(cors({ origin: '*', optionsSuccessStatus: 200 }));
     this.app.use(hpp());
     this.app.use(helmet());
     this.app.use(compression());
@@ -55,7 +59,7 @@ class App {
 
   private initializeRoutes(routes: Routes[]) {
     routes.forEach(route => {
-      this.app.use('/', route.router);
+      this.app.use('/api', route.router);
     });
   }
 
