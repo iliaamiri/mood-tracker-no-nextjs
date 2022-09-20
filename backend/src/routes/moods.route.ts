@@ -15,7 +15,7 @@ class MoodsRoute implements Routes {
   }
 
   private initializeRoutes() {
-    console.log(__dirname + '/../client');
+    //console.log(__dirname + '/../client');
 
     this.router.get(`${this.path}`, this.moodsController.getMoods);
     this.router.get(`${this.path}/:id(\\d+)`, this.moodsController.getOneMood);
